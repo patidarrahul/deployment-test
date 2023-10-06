@@ -45,17 +45,15 @@ if 'WEBSITE_HOSTNAME' in os.environ:
 ]
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-    connection_string = os.environ['AZURE_POSTGRESQL_CONNECTIONSTRING']
-    parameters = {pair.split('=')[0]: pair.split('=')[1] for pair in connection_string.split(' ')}
 
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': parameters['dbname'],
-            'USER': parameters['user'],
-            'PASSWORD': parameters['password'],
-            'HOST': parameters['host'],
-            'PORT': parameters['port'],
+            'NAME': os.environ['DB_NAME'],
+            'USER': os.environ['DB_USER'],
+            'PASSWORD': os.environ['DB_PASSWORD'],
+            'HOST': os.environ['DB_HOST'],
+            'PORT': os.environ['DB_PORT'],
             'OPTIONS': {
                 'sslmode': 'require',
         },
